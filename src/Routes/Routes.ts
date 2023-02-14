@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import CarController from '../Controllers/CarController';
+import MotorcycleController from '../Controllers/MotorcycleController';
 import { CarExists, NotFoundCar } from '../Middlewares/ErrorHandler';
 
 const routes = Router();
@@ -25,6 +26,10 @@ routes.post(
 routes.get(
   '/cars',
   (req, res, next) => new CarController(req, res, next).getAllCars(),
+);
+routes.post(
+  '/motorcycles',
+  (req, res, next) => new MotorcycleController(req, res, next).create(),
 );
 
 export default routes;

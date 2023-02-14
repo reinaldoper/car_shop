@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import mongoose from 'mongoose';
+import Mongose from 'mongoose';
 import CarODM from '../Models/CarODM ';
 
 const CarExists = async (
@@ -21,7 +21,7 @@ const CarExists = async (
 const NotFoundCar = (req: Request, res: Response, next: NextFunction): void => {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!Mongose.Types.ObjectId.isValid(id)) {
     res.status(422).json({ message: 'Invalid mongo id' });
     return;
   }
