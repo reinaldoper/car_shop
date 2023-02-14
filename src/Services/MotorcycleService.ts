@@ -24,6 +24,12 @@ class MotorcycleService {
     const result = this.createMotorcycleDomain(moto);
     return result;
   }
+  public async deleteMoto(_id: string): Promise<(Motorcycle | null)> {
+    const motoODM = new MotorcycleODM();
+    const moto = await motoODM.delete(_id);
+    const result = this.createMotorcycleDomain(moto);
+    return result;
+  }
 
   public async getAllMotors(): Promise<(Motorcycle | null)[]> {
     const motoODM = new MotorcycleODM();

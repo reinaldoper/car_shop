@@ -37,6 +37,17 @@ describe('Busca motos cadastradas', function () {
 
     sinon.restore();
   });
+  it('Deleta uma moto pelo ID', async function () {
+    const keyOutput: Motorcycle = new Motorcycle(motoOutput);
+    sinon.stub(Model, 'findByIdAndDelete').resolves(keyOutput);
+
+    const service = new MotorcycleService();
+    await service.deleteMoto('6348513f34c397abcad040b2');
+
+    expect(204).to.be.deep.equals(204);
+
+    sinon.restore();
+  });
   it('Retorna erro com ID inválido', async function () {
     sinon.stub(Model, 'findOne').resolves(null);
     try {

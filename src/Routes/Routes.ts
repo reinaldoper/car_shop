@@ -3,16 +3,34 @@ import CarController from '../Controllers/CarController';
 import MotorcycleController from '../Controllers/MotorcycleController';
 import { CarExists, NotFoundCar, MotoExists } from '../Middlewares/ErrorHandler';
 
+const URL_MOTO_ID = '/motorcycles/:id';
+const URL_CAR_ID = '/cars/:id';
+
 const routes = Router();
+
+routes.delete(
+  URL_MOTO_ID,
+  NotFoundCar,
+  MotoExists,
+  (req, res, next) => new MotorcycleController(req, res, next).deleteByIdMoto(),
+);
+
+routes.delete(
+  URL_CAR_ID,
+  NotFoundCar,
+  CarExists,
+  (req, res, next) => new CarController(req, res, next).deleteByIdCar(),
+);
+
 routes.get(
-  '/cars/:id',
+  URL_CAR_ID,
   NotFoundCar,
   CarExists,
   (req, res, next) => new CarController(req, res, next).getById(),
 );
 
 routes.put(
-  '/cars/:id',
+  URL_CAR_ID,
   NotFoundCar,
   CarExists,
   (req, res, next) => new CarController(req, res, next).updateCar(),
@@ -38,14 +56,14 @@ routes.get(
 );
 
 routes.get(
-  '/motorcycles/:id',
+  URL_MOTO_ID,
   NotFoundCar,
   MotoExists,
   (req, res, next) => new MotorcycleController(req, res, next).getByIdMoto(),
 );
 
 routes.put(
-  '/motorcycles/:id',
+  URL_MOTO_ID,
   NotFoundCar,
   MotoExists,
   (req, res, next) => new MotorcycleController(req, res, next).updateMoto(),

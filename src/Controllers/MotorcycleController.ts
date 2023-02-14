@@ -42,6 +42,18 @@ class MotorcycleController {
     const moto = await this.service.getByValue(id);
     return this.res.status(200).json(moto);
   }
+  public async deleteByIdMoto() {
+    const { id } = this.req.params;
+    try {
+      const result = await this.service.deleteMoto(id);
+      
+      if (result) {
+        return this.res.status(204).json({ });
+      }
+    } catch (error) {
+      this.next(error);
+    }
+  }
 
   public async updateMoto() {
     const moto: IMotorcycle = {

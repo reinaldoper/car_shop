@@ -22,6 +22,13 @@ class CarService {
     return result;
   }
 
+  public async deleteCar(_id: string): Promise<(Car | null)> {
+    const carODM = new CarODM();
+    const car = await carODM.delete(_id);
+    const result = this.createCarDomain(car);
+    return result;
+  }
+
   public async getAllCars(): Promise<(Car | null)[]> {
     const carODM = new CarODM();
     const cars = await carODM.getAll();

@@ -33,6 +33,19 @@ class CarController {
     }
   }
 
+  public async deleteByIdCar() {
+    const { id } = this.req.params;
+    try {
+      const result = await this.service.deleteCar(id);
+      
+      if (result) {
+        return this.res.status(204).json({ });
+      }
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
   public async getById() {
     const { id } = this.req.params;
     const car = await this.service.getByValue(id);

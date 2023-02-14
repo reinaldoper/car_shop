@@ -46,6 +46,17 @@ describe('Buscar carros cadastrados', function () {
 
     sinon.restore();
   });
+  it('Deleta um carro pelo ID', async function () {
+    const keyOutput: Car = new Car(car);
+    sinon.stub(Model, 'findByIdAndDelete').resolves(keyOutput);
+
+    const service = new CarService();
+    await service.deleteCar('634852326b35b59438fbea2f');
+
+    expect(204).to.be.deep.equals(204);
+
+    sinon.restore();
+  });
   it('Retorna erro com ID inválido', async function () {
     sinon.stub(Model, 'findOne').resolves(null);
     try {
