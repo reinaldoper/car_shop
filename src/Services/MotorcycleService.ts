@@ -25,6 +25,13 @@ class MotorcycleService {
     return result;
   }
 
+  public async getAllMotors(): Promise<(Motorcycle | null)[]> {
+    const motoODM = new MotorcycleODM();
+    const cars = await motoODM.getAll();
+    const result = cars.map((key: IMotorcycle) => this.createMotorcycleDomain(key));
+    return result;
+  }
+
   public async update(id: string, moto: IMotorcycle) {
     const motorcycleODM = new MotorcycleODM();
     return motorcycleODM.update(id, moto);

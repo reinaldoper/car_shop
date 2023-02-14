@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import CarController from '../Controllers/CarController';
 import MotorcycleController from '../Controllers/MotorcycleController';
-import { CarExists, NotFoundCar } from '../Middlewares/ErrorHandler';
+import { CarExists, NotFoundCar, MotoExists } from '../Middlewares/ErrorHandler';
 
 const routes = Router();
 routes.get(
@@ -30,6 +30,18 @@ routes.get(
 routes.post(
   '/motorcycles',
   (req, res, next) => new MotorcycleController(req, res, next).create(),
+);
+
+routes.get(
+  '/motorcycles',
+  (req, res, next) => new MotorcycleController(req, res, next).getAllMotors(),
+);
+
+routes.get(
+  '/motorcycles/:id',
+  NotFoundCar,
+  MotoExists,
+  (req, res, next) => new MotorcycleController(req, res, next).getByIdMoto(),
 );
 
 export default routes;

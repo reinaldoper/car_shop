@@ -32,10 +32,15 @@ class MotorcycleController {
     }
   }
 
-  public async getById() {
+  public async getAllMotors() {
+    const motors = await this.service.getAllMotors();
+    return this.res.status(200).json(motors);
+  }
+
+  public async getByIdMoto() {
     const { id } = this.req.params;
-    const car = await this.service.getByValue(id);
-    return this.res.status(200).json(car);
+    const moto = await this.service.getByValue(id);
+    return this.res.status(200).json(moto);
   }
 }
 

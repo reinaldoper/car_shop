@@ -25,7 +25,7 @@ abstract class AbstractODM<T> {
     return this.model.findOne({ _id });
   }
 
-  public async getAllCars(): Promise<T[]> {
+  public async getAll(): Promise<T[]> {
     return this.model.find({});
   }
 

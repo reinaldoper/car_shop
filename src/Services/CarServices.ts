@@ -24,7 +24,7 @@ class CarService {
 
   public async getAllCars(): Promise<(Car | null)[]> {
     const carODM = new CarODM();
-    const cars = await carODM.getAllCars();
+    const cars = await carODM.getAll();
     const result = cars.map((key: ICar) => this.createCarDomain(key));
     return result;
   }

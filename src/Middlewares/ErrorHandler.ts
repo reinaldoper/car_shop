@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Mongose from 'mongoose';
 import CarODM from '../Models/CarODM ';
+import MotorcycleODM from '../Models/MotorcycleODM';
 
 const CarExists = async (
   req: Request,
@@ -18,6 +19,22 @@ const CarExists = async (
   next();
 };
 
+const MotoExists = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  const { id } = req.params;
+  const moto = await new MotorcycleODM().findByValue(id);
+
+  if (!moto) {
+    res.status(404).json({ message: 'Motorcycle not found' });
+    return;
+  }
+
+  next();
+};
+
 const NotFoundCar = (req: Request, res: Response, next: NextFunction): void => {
   const { id } = req.params;
 
@@ -29,4 +46,4 @@ const NotFoundCar = (req: Request, res: Response, next: NextFunction): void => {
   next();
 };
 
-export { NotFoundCar, CarExists };
+export { NotFoundCar, CarExists, MotoExists };
