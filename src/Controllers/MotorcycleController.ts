@@ -42,6 +42,20 @@ class MotorcycleController {
     const moto = await this.service.getByValue(id);
     return this.res.status(200).json(moto);
   }
+
+  public async updateMoto() {
+    const moto: IMotorcycle = {
+      ...this.req.body,
+    };
+    const { id } = this.req.params;
+    try {
+      await this.service.update(id, moto);
+      const newMoto = await this.service.getByValue(id);
+      return this.res.status(200).json(newMoto);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
 
 export default MotorcycleController;
