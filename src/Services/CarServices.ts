@@ -15,8 +15,21 @@ class CarService {
     const newCar = await carODM.create(car);
     return this.createCarDomain(newCar);
   }
+  public async getByValue(_id: string): Promise<(Car | null)> {
+    const carODM = new CarODM();
+    const car = await carODM.findByValue(_id);
+    const result = this.createCarDomain(car);
+    return result;
+  }
 
-  public async createId(id: string, car: ICar) {
+  public async getAllCars(): Promise<(Car | null)[]> {
+    const carODM = new CarODM();
+    const cars = await carODM.getAllCars();
+    const result = cars.map((key: ICar) => this.createCarDomain(key));
+    return result;
+  }
+
+  public async update(id: string, car: ICar) {
     const carODM = new CarODM();
     return carODM.update(id, car);
   }

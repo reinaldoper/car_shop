@@ -1,31 +1,30 @@
 import { Router } from 'express';
 import CarController from '../Controllers/CarController';
+import { CarExists, NotFoundCar } from '../Middlewares/ErrorHandler';
 
 const routes = Router();
+routes.get(
+  '/cars/:id',
+  NotFoundCar,
+  CarExists,
+  (req, res, next) => new CarController(req, res, next).getById(),
+);
+
+routes.put(
+  '/cars/:id',
+  NotFoundCar,
+  CarExists,
+  (req, res, next) => new CarController(req, res, next).updateCar(),
+);
 
 routes.post(
   '/cars',
   (req, res, next) => new CarController(req, res, next).create(),
 );
 
-/* routes.patch(
-  '/transfer/:id',
-  (req, res, next) => new TransferController(req, res, next).reversalRequest(),
-);
-
-routes.post(
-  '/key/register',
-  (req, res, next) => new KeyController(req, res, next).create(),
-);
-
 routes.get(
-  '/key/:value',
-  (req, res, next) => new KeyController(req, res, next).getByValue(),
+  '/cars',
+  (req, res, next) => new CarController(req, res, next).getAllCars(),
 );
 
-routes.get(
-  '/key/owner/:name',
-  (req, res, next) => new KeyController(req, res, next).getByOwner(),
-);
- */
 export default routes;
